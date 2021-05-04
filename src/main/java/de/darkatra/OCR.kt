@@ -117,6 +117,12 @@ class SnipItPane(
 
 class OCR {
 	init {
+
+		if (!SystemTray.isSupported()) {
+			println("SystemTray is not supported.")
+			exitProcess(1)
+		}
+
 		val logger: Logger = Logger.getLogger(GlobalScreen::class.java.getPackage().name)
 		logger.level = Level.WARNING
 		logger.useParentHandlers = false
@@ -126,7 +132,7 @@ class OCR {
 		} catch (ex: NativeHookException) {
 			println("There was a problem registering the native hook.")
 			println(ex.message)
-			exitProcess(1)
+			exitProcess(2)
 		}
 
 		val clipboard = Toolkit.getDefaultToolkit().systemClipboard
